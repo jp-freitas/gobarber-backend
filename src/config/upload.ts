@@ -5,13 +5,14 @@ import multer from 'multer';
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 export default {
-  directory: tmpFolder,
+  tmpFolder,
+  uploadsFolder: path.resolve(tmpFolder, 'uploads'),
   storage: multer.diskStorage({
     destination: tmpFolder,
     filename(request, file, callback) {
       const filehash = crypto.randomBytes(10).toString('hex');
       const filename = `${filehash}-${file.originalname}`;
       return callback(null, filename);
-    }
+    },
   }),
-}
+};
