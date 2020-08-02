@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   Entity,
   Column,
@@ -5,6 +6,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity('users')
 class Users {
@@ -18,10 +21,18 @@ class Users {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
   avatar: string;
+
+  @Expose({ name: 'avatar_url' })
+  getAvatarUrl(): string | null {
+    return this.avatar
+      ? `${process.env.APP_API_URL}/files/${this.avatar}`
+      : null;
+  }
 
   @CreateDateColumn()
   created_at: Date;
