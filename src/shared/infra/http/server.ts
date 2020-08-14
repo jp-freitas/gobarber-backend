@@ -15,6 +15,7 @@ import '@shared/infra/typeorm';
 import '@shared/container/index';
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
